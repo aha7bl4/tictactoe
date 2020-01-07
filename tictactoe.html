@@ -7,31 +7,31 @@
         <title>tictactoe</title>
         <style>
 
-          .картинка{
-                position:fixed;
-                right:120vh;
+        .картинка{
+        position:fixed;
+        right:120vh;
         bottom:65vh;
         width:300px;
         height:300px;
         -ms-user-select: none; 
-       -moz-user-select: none; 
-       -webkit-user-select: none; 
+        -moz-user-select: none; 
+        -webkit-user-select: none;   
          user-select: none; 
 
-                  
+        }
 
-          }
-
-         .калькулятор{        
+       .калькулятор{        
          
-        position:fixed;
-        background-color:#000000; 
+        position:absolute;
+        background-color:#019991; 
         user-select:none; 
        
-        right:90vh;
-        bottom:5vh;
+        right:500px;
+        bottom:100px;
         width:340px;
         height:340px;
+        left:800px;
+        top: 500px;
         border:1px solid;
         
         overflow:hidden;
@@ -41,284 +41,382 @@
     
         
  
-        .клетка{                      
-		display: inline-block;
-		
-			border: solid 2px #2ff;
+        .клетка{  
+              position: relative;                    
+         display: inline-block;
+	   border: solid 2px #2ff;
+	   margin: 1px;
+	   border: solid 2px #000000;
+	   width: 100px; height: 100px;
+	   background-color: white;
+	   font-size: 100px;
+	   text-align: center;
+         
+	   cursor: pointer;
 			
-			margin: 1px;
-			border: solid 2px #000000;
-			
-			width: 100px; height: 100px;
-			background-color: white;
-			font-size: 70px;
-			text-align: center;
-			cursor: pointer;
-			
-			transition: all 0.2s ease;
+		transition: all 0.2s ease;
             -ms-user-select: none; 
-       -moz-user-select: none; 
-       -webkit-user-select: none; 
-         user-select: none; 
+            -moz-user-select: none; 
+            -webkit-user-select: none; 
+            user-select: none; 
         
         }
         
-         .клетка:hover{                       
-	    color: black;
-	  cursor: pointer;
-	    box-shadow:0px 0px 90px green, 0px 0px 50px blue;
+      .клетка:hover{                       
+	color: black;
+	cursor: pointer;
+	box-shadow:10px 10px 10px greenyellow;
 	    
 	}
     .символ{
-display: inline-block;
-width: 50px;
-height: 50px;
-border: solid 2px #000000;
-font-size: 50px;
-
-text-align: center;
-    margin: 1px;
+     display: inline-block;
+     width: 50px;
+     height: 50px;
+     
+     font-size: 50px;
+     text-align: center;
+     margin: 1px;
     }
     .символ:hover{                       
-	    color: black;
-	  cursor: pointer;
-        width: 60px;
-height: 60px;
+	color: black;
+	cursor: pointer;
+      width: 60px;
+      height: 60px;
 
 	    
 	}
         .поля_игр{
-            
-     display: inline-block;
-       width: 350px;
-       height: 500px;
-        border: solid 2px #000000;
-       font-size: 50px;
-       top: 250px;
-        text-align: center;
-        margin: 1px;
+      display: inline-block;
+      width: 350px;
+      height: 500px;
+      border: solid 2px #000000;
+      font-size: 28px;
+      top: 250px;
+      text-align: center;
+      margin: 1px;
     }
 
-
-
-        
-       
-        
-               </style>
-
-
-</head>
-               <script	src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
-               </script>
-        
-            <script type="text/javascript" >   
-               	var играХО={
-                  игрок: '',
-                  номер:'',
+    .старт{
+     display: block;
+     position: fixed;
+     width:110px;
+     height:50px;
+     right:500px;
+     top:400px;
+     left: 500px;
+     bottom:400px;
+     background-color: #000000;
+     text-decoration-color: aliceblue;
+     border: solid 2px #000000;
+     color: white;
+     font-size:150%;
+     text-align: center;
+     border-radius: 5px;
+     transition: all 0.2s ease;
+     cursor: pointer;
+    }
+     .старт:hover{
+      width:111px;
+      height:51px;
+      box-shadow:3px 3px 10px black
            
-           
-                  список_игр:function(номер){
-                  $.ajax({
-					url:'/node/запрос',
-					type:'POST',
-					dataType:'json',
-					data:{
-						игрок: играХО.игрок,
-                                    ход:_параметры.клетка
-                                    
-					},
-					success: function(_ответ){
-                                    ник;
-					}
-				});
+     }
+     .чей_ход{
+      width:310px;
+     height:29px;
+     right:200px;
+     top:200px;
+     left: 900px;
+     bottom:400px;
+     border: solid 2px #000000;
+     display: block;
+     position: fixed;
+     font-size:150%;
+     text-align: center;
 
+     }
+
+     .игра{
+      width: 349px;
+      height: 50px;
+      background-color: #019991;
+      position: relative;
+      display: inline-block;
+      border: solid 1px #000000
+
+
+     }
+
+
+     </style>
+        </head>
+          <script	src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+          <script type="text/javascript" >   
+            var играXO={
+            ид_игрока: '',
+            ид_игры:'',
+            ник:'',
+            чей_ход:'',
+            ид_хода:'',
+            
                   
+
+
+            ник_ид_игрока:function(){
+                  $.ajax({
+                  url:'/node/запрос',
+			type:'POST',
+			dataType:'json',
+			data:{
+                  команда:'ник_ид_игрока',
+                  ник:document.getElementById("txt").value
+                  },
+			success: function(_ответ){
+                  if(_ответ=="ник занят"){ 
+                        alert("ник занят");
+                  }else{
+                   document.getElementById("инфо").innerHTML = "Вы создали ник, теперь вы можете создать игру, или присоедениться к существующей";   
+                  играXO.ид_игрока=_ответ.ид_игрока;
+                  document.getElementById("отправить").disabled = true; 
+                  }
+			}             
+                 });
+                },
+
+
+            
+            список_игр:function(ид_игрока){
+                  console.log("timeout0");
+                  var timerId = setInterval(function() {
+                  console.log("timeout");
+                  $.ajax({
+                  url:'/node/запрос',
+			type:'POST',
+			dataType:'json',
+                  data:{
+                  команда:'список_игр',
+			},
+			success: function(_ответ){
+                  играXO.список=_ответ.список;
+                  
+                  var str='<table id="список_игр" border="1" width="100%" cellpadding="5">';
+                  for(var i=0; i<_ответ.length; i++) {
+                        console.log(_ответ[i].ид_игры,_ответ[i].игрок1);
+                        str+='<tr id="'+_ответ[i].ид_игры + '"><td bgcolor="burlywood">' + _ответ[i].игрок1 +" " + '<strong>'+_ответ[i].ид_игры  + '</strong> ' +' '+  _ответ[i].игрок2 +'</td></tr>'
+                        }
+                        str+='</table>'
+                  document.getElementById("игра").innerHTML =str;
+                  $('tr').on('click',function(event){        
+                  играXO.ид_предполг_игры=this.id
+                  играXO.запрос_на_присоединение();                //вот из за этого че то все не работает
+
+
+                  alert("запрос на присоединение к" + this.id);
+                  console.log("ид игры=" +this.id);
+                 
+                 });
+               }                                                                                                                                                                   
+            });
+      }, 5000);
+   },
+      
+
+            старт:function(){
+                  
+			$.ajax({
+			url:'/node/запрос',
+			type:'POST',
+			dataType:'json',
+			data:{
+                  команда:'старт',
+                  ид_игрока:играXO.ид_игрока,
+                  ник:играXO.ник,
+                  ид_игрока:играXO.ид_игрока
+                  },
+			success: function(_ответ){
+                        if(_ответ=="вы уже создали игру"){ 
+                        alert("вы уже создали игру");
+                  }else{
+                        играXO.запрос_на_ход();
+                        document.getElementById("инфо").innerHTML = "Вы создали игру ожидайте второго игрока";
+                  alert("вы создали игру");
+                  играXO.ид_игры=_ответ.ид_игры
+                  играXO.чей_ход=_ответ.чей_ход
+                  
+                  
+                  }
+                  }
+		    });
+              },
+
+            запрос_на_присоединение:function(){
+                  $.ajax({
+                  url:'/node/запрос',
+                  type:'POST',
+                  dataType:'json',
+                  data:{
+                  команда:'запрос_на_присоединение',
+                  ид_игры:играXO.ид_предполг_игры,
+                  ник:играXO.ник
+                  },
+                  success: function(_ответ){
+                        
+                  if(_ответ.ответ=="одобрено"){
+                  alert("успешно");
+                   document.getElementById("инфо").innerHTML = "вы присоединились к игре";
+                   играXO.запрос_на_ход();
+                   играXO.ид_игры=играXO.ид_предполг_игры;
+                  
+                  }
+                  if(_ответ.ответ=="игра не найдена"){ 
+                  alert("запрос отклонен");  
+                  document.getElementById("инфо").innerHTML = "попробуйте присоед. к другой игре или создайте ее";
+                  }
+                  }
+                });
+            },
+            запрос_на_ход:function(){
+                  var timerId = setInterval(function() {
+                  $.ajax({
+                  url:'/node/запрос',
+                  type:'POST',
+                  dataType:'json',
+                  data:{
+                  команда:'запрос_на_ход',
+                  ид_игры:играXO.ид_игры,
+                  ник:играXO.ник
+                  },
+                  success: function(_ответ){
+                        if(_ответ.ответ=="победил X"){
+                       document.getElementById("чей_ход").innerHTML = "победил X";
+                        }
+                        if(_ответ.ответ=="победил O"){
+                       document.getElementById("чей_ход").innerHTML = "победил O";
+                        }
+                        
+                        if(_ответ.ответ=="ход возможен"){
+                        document.getElementById("чей_ход").innerHTML = "можешь сделать ход";
+                       
+
+                        }
+                        if(_ответ.ответ=="ход невозможен"){
+                        document.getElementById("чей_ход").innerHTML = "сейчас не твой ход";
+                        
+                        }
+                  for(var i=0;i<_ответ.возможные_ходы.length;i++){
+                              console.log(_ответ.возможные_ходы[i] + "Возможный ход");
+                             document.getElementById(i).innerHTML = _ответ.возможные_ходы[i];
+                 }
+                }
+            });
+         }, 2000);     
             },
 
-
- 
-            старт:function(){
-                        console.log("клетка="+_параметры.клетка);
-				$.ajax({
-					url:'/node/запрос',
-					type:'POST',
-					dataType:'json',
-					data:{
-						игрок: играХО.игрок,
-                                    ход:_параметры.клетка
-                                    
-					},
-					success: function(_ответ){
-                                    номер;
-					}
-				});
-				
-                  },
-                  
-
-
-
-
-
-
-
-
-
-
-
-
-
-			ход: function(_параметры){  
-				$.ajax({
-					url:'/node/запрос',
-					type:'POST',
-					dataType:'json',
-					data:{
-						игрок: играХО.игрок,
-                                    ход:_параметры.клетка
-                                    
-					},
-					success: function(_ответ){
-                                    номер;
-					}
-				});
-				
+            
+            ход: function(_параметры){  
+			$.ajax({
+			url:'/node/запрос',                                               
+			type:'POST',  
+			dataType:'json',
+			data:{
+                  команда:'ход',
+                  ник:играXO.ник,
+                  ид_хода:играXO.ид_хода
 			},
-			были_ходы:function(){
+			success: function(_ответ){   
+                  
 			}
-		};
-		                                                                                           
-                          var игрок = new Boolean(true);  
-    $(document).ready(function(){   
+		    });
+		    },
 
-      $('#отправить').on('click',function(){ 
-            alert(document.getElementById("txt").value);
+            
+             };                                   
+                                                 
+            $(document).ready(function(){ 
+                  играXO.список_игр();
+                  $('#старт').on('click',function(){ 
+                  играXO.старт();
+                  }); 
 
-	
+            $('#ник').on('click',function(){
+                  alert(играXO.ник);
 
-  });
+                  });
+
+            $('#отправить').on('click',function(){
+
+                    играXO.ник=document.getElementById("txt").value;
+                  играXO.ник_ид_игрока();  
+
+                  });
+            
         
-        $('#x').on('click',function(){ 
-игрок=true;
-console.log(игрок);
-document.getElementById("индикатор").innerHTML = "X";
-        });   
-        $('#o').on('click',function(){ 
-игрок=false;
-console.log(игрок);
-document.getElementById("индикатор").innerHTML = "O";
+               
 
-        });   
-
-     $('.клетка').on('click',function(){ 
-           console.log("cletka click" + this);
-      var _клетка=$(this);
-      играХО.ход({клетка:_клетка.id});
-
-if(игрок==true){
-        document.getElementById(this.id).innerHTML = "X";
-}
-if(игрок==false){
-        document.getElementById(this.id).innerHTML = "O";
-        console.log(игрок);
-}
-        });
+            $('.клетка').on('click',function(){ 
+                  console.log("ХООООД");
+                
+                  играXO.ид_хода=event.target.id;
+                  играXO.ход();
+                
+            });
      
-         var чей_ход='';
-          var клетки={к1:'',к2:'',к3:'',к4:'',к5:'',к6:'',к7:'',к8:'',к9:''};
-              function старт(){
-                 if(чей_ход=="игрок1"){
-              
+            
+                 });
 
-
-                   }
-              }
-		           function ход(){
-
-
-
-                   }
-               function игра_окончена(){
-
-
-               }
-    });
- 
-  
-    </script>
+      </script>
         
-        
-     
-        
-        
-        
-        
-    
-    <body>
+      <body>
 
-<div class="поля_игр"></div>
+      <div class="поля_игр" id="игра"> пустенько</div> 
+      
        
-     <div>вы играете за:</div>
+      <div>вы играете за:</div>
      
-     <p id="индикатор" style="color: red; font-size:150%;">X</p>
+      <p id="индикатор" style="color: red; font-size:150%;">X</p>
 
-     <p><b>Ваше имя:</b><br>
+      <p><b>Ваше имя:</b><br> <input type="button" id="ник" value="ник">
       <input type="text" id="txt"/>
 
 	<input type="button" id="отправить" value="отправить">
-          <div class="калькулятор">  
-            .
-      <span class="клетка" id="девять">
+      <div class="калькулятор">  
+            
+      <span class="клетка" id="0">
            
 		</span>
-		<span class="клетка" id="восемь">
-            .
+		<span class="клетка" id="1">
+            
 		</span> 
-		<span class="клетка" id="семь">
-            .
+		<span class="клетка" id="2">
+            
 		</span>
-		<span class="клетка" id="шесть">
-            .
+		<span class="клетка" id="3">
+            
 		</span>
-		<span class="клетка" id="пять">
-            .
+		<span class="клетка" id="4">
+            
 		</span>
-		<span class="клетка" id="четыре">
-            .
+		<span class="клетка" id="5">
+            
 		</span>
-		<span class="клетка" id="три">
-            	.
+		<span class="клетка" id="6">
+            	
 		</span>
 		
-		<span class="клетка" id="два">
-             .
+		<span class="клетка" id="7">
+             
 		</span>
-		<span class="клетка" id="один">
-           .
+		<span class="клетка" id="8">
+           
 		</span>
 		
        
 
       </div>
-
-<div class="картинка"><img src="tictactoe.png" alt=""></div>
-
-
-    <div class="символ" id="x">x</div>
-            <div class="символ" id="o">o</div>
+      <div class="старт" id="старт"><tt>создать игру</tt></div>
+      <div id="инфо">Создайте ник</div>
+      <div class="чей_ход" id="чей_ход">начните игру</div>
        
-    </body>
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+      </body>
     
 </html>
